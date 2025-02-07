@@ -41,9 +41,10 @@ under the License.
 
 <!--        Attributes -->
         <alias entity-alias="ORD" name="orderId"/>
-        <alias entity-alias="ORD" name="statusId"/>
+        <alias entity-alias="ORD" name="orderStatusId" field="statusId"/>
         <alias entity-alias="ORD" name="grandTotal"/>
-        <alias entity-alias="ORD_PAY" name="statusId"/>
+        <alias entity-alias="ORD" name="orderDate"/>
+        <alias entity-alias="ORD_PAY" name="paymentStatusId" field="statusId"/>
         <alias entity-alias="PER" name="firstName"/>
         <alias entity-alias="PER" name="lastName"/>
         <alias entity-alias="PA" name="address1"/>

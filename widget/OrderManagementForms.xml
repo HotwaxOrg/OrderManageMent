@@ -21,5 +21,19 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-
+    <form name="FindOrder" type="single" target="FindOrder" default-entity-name="FindOrderView">
+        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="orderId" title="orderId"><text-find/></field>
+        <field name="firstName" title="firstName"><text-find/></field>
+        <field name="lastName" title="lastName"><text-find/></field>
+        <field name="orderStatusId" title="orderStatusId"><text-find/></field>
+        <field name="paymentStatusId" title="paymentStatusId"><text-find/></field>
+        <field name="address1" title="address1"><text-find/></field>
+        <field name="address2" title="address2"><text-find/></field>
+        <field name="city" title="city"><text-find/></field>
+        <field name="postalCode" title="postalCode"><text-find/></field>
+        <field name="stateProvinceGeoId" title="stateProvinceGeoId"><text-find/></field>
+        <field name="countryGeoId" title="countryGeoId"><text-find/></field>
+        <field name="searchButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
+    </form>
 </forms>

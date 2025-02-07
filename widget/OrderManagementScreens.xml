@@ -29,6 +29,19 @@ under the License.
             <widgets>
                 <decorator-screen name="OrderManagementCommonDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <screenlet name="Find Order..."/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="FindOrder">
+        <section>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="FindOrder" location="component://OrderManagement/widget/OrderManagementForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
