@@ -28,4 +28,56 @@ under the License.
     <copyright></copyright>
     <version></version>
 
+<!--    Creating an order view entity-->
+    <view-entity entity-name="FindOrderView" package-name="org.apache.ordermanagement.orderview" title="Order View Entity">
+<!--        Entities required to create the view -->
+        <member-entity entity-alias="ORD" entity-name="OrderHeader"/>
+        <member-entity entity-alias="ORD_RL" entity-name="OrderRole"/>
+        <member-entity entity-alias="PER" entity-name="Person"/>
+        <member-entity entity-alias="PR" entity-name="PartyRole"/>
+        <member-entity entity-alias="ORD_PAY" entity-name="OrderPaymentPreference"/>
+        <member-entity entity-alias="OCM" entity-name="OrderContactMech"/>
+        <member-entity entity-alias="PA" entity-name="PostalAddress"/>
+
+<!--        Attributes -->
+        <alias entity-alias="ORD" name="orderId"/>
+        <alias entity-alias="ORD" name="statusId"/>
+        <alias entity-alias="ORD" name="grandTotal"/>
+        <alias entity-alias="ORD_PAY" name="statusId"/>
+        <alias entity-alias="PER" name="firstName"/>
+        <alias entity-alias="PER" name="lastName"/>
+        <alias entity-alias="PA" name="address1"/>
+        <alias entity-alias="PA" name="address2"/>
+        <alias entity-alias="PA" name="city"/>
+        <alias entity-alias="PA" name="postalCode"/>
+        <alias entity-alias="PA" name="stateProvinceGeoId"/>
+        <alias entity-alias="PA" name="countryGeoId"/>
+        
+<!--        Filters -->
+        <view-link entity-alias="ORD" rel-entity-alias="ORD_RL" rel-optional="false">
+            <key-map field-name="orderId"/>
+        </view-link>
+        <view-link entity-alias="ORD_RL" rel-entity-alias="PER" rel-optional="false">
+            <key-map field-name="partyId"/>
+        </view-link>
+        <view-link entity-alias="ORD_RL" rel-entity-alias="PR" rel-optional="false">
+            <key-map field-name="partyId"/>
+            <entity-condition distinct="true">
+                <condition-expr entity-alias="PR" field-name="roleTypeId" value="CUSTOMER"/>
+            </entity-condition>
+        </view-link>
+        <view-link entity-alias="ORD" rel-entity-alias="ORD_PAY" rel-optional="false">
+            <key-map field-name="orderId"/>
+        </view-link>
+        <view-link entity-alias="ORD" rel-entity-alias="OCM" rel-optional="false">
+            <key-map field-name="orderId"/>
+            <entity-condition distinct="true">
+                <condition-expr entity-alias="OCM" field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
+            </entity-condition>
+        </view-link>
+        <view-link entity-alias="OCM" rel-entity-alias="PA" rel-optional="false">
+            <key-map field-name="contactMechId"/>
+        </view-link>
+    </view-entity>
+
 </entitymodel>
