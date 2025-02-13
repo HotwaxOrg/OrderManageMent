@@ -33,4 +33,40 @@ under the License.
     <property key="OrderManagementViewPermissionError">
         <value xml:lang="en">You are not allowed to view this page.</value>
     </property>
+    <property key="OrderOrderId">
+        <value xml:lang="en">Order Id</value>
+    </property>'
+    <property key="OrderStatusId">
+        <value xml:lang="en">Order Status</value>
+    </property>
+    <property key="OrderOrderDate">
+        <value xml:lang="en">Order Date</value>
+    </property>
+    <property key="OrderFirstName">
+        <value xml:lang="en">First Name</value>
+    </property>
+    <property key="OrderLastName">
+        <value xml:lang="en">Last Name</value>
+    </property>
+    <property key="OrderPaymentStatus">
+        <value xml:lang="en">Payment Status</value>
+    </property>
+    <property key="OrderAddress1">
+        <value xml:lang="en">Address 1</value>
+    </property>
+    <property key="OrderAddress2">
+        <value xml:lang="en">Address 2</value>
+    </property>
+    <property key="OrderOrderCity">
+        <value xml:lang="en">City</value>
+    </property>
+    <property key="OrderPostalCode">
+        <value xml:lang="en">Postal Code</value>
+    </property>
+    <property key="OrderOrderState">
+        <value xml:lang="en">State</value>
+    </property>
+    <property key="OrderOrderCountry">
+        <value xml:lang="en">Country</value>
+    </property>
 </resource>

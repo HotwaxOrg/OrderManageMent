@@ -41,23 +41,15 @@ under the License.
             <actions>
                 <set field="headerItem" value="findOfbizDemo"/>
                 <set field="titleProperty" value="PageTitleFindOfbizDemo"/>
-                <set field="ofbizDemoctx" from-field="parameters"/>
+<!--                <set field="ofbizDemoctx" from-field="parameters"/>-->
+                <script location="component://OrderManagement/groovyScripts/FindOrders.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <section>
-                            <widgets>
-                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
-                                    <decorator-section name="search-options">
-                                        <include-form name="FindOrder" location="component://OrderManagement/widget/OrderManagementForms.xml"/>
-                                    </decorator-section>
-                                    <decorator-section name="search-results">
-                                        <include-form name="ListOrder" location="component://OrderManagement/widget/OrderManagementForms.xml"/>
-                                    </decorator-section>
-                                </decorator-screen>
-                            </widgets>
-                        </section>
+                        <platform-specific>
+                            <html><html-template location="component://OrderManagement/template/FindOrders.ftl"/></html>
+                        </platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

@@ -45,6 +45,12 @@ under the License.
         <security/>
         <response name="success" type="view" value="FindOrder"/>
     </request-map>
+    <request-map uri="searchorders">
+        <security/>
+        <event type="service" invoke="findOrders"/>
+        <response name="success" type="view" value="FindOrder"/>
+        <response name="error" type="view" value="FindOrder"/>
+    </request-map>
     
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://OrderManagement/widget/OrderManagementScreens.xml#main"/>

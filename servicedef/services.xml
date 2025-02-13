@@ -30,5 +30,6 @@ under the License.
         </description>
     </service>
 
+    <service name="findOrders" engine="java" auth="true"
     
 </services>
