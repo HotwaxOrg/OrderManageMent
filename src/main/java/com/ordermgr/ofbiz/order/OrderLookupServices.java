@@ -190,4 +190,71 @@ public class OrderLookupServices {
             return ServiceUtil.returnError("Error creating order: " + e.getMessage());
         }
     }
+
+    public static Map<String, Object> updateOrder(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Delegator delegator = dctx.getDelegator();
+
+        // Extract input parameters
+        String orderId = (String) context.get("orderId");
+        String address1 = (String) context.get("address1");
+        String address2 = (String) context.get("address2");
+        String city = (String) context.get("city");
+        String state = (String) context.get("state");
+        String postalCode = (String) context.get("postalCode");
+        String country = (String) context.get("country");
+
+        // Validate required fields
+        if (UtilValidate.isEmpty(orderId)) {
+            return ServiceUtil.returnError("Missing required parameter: orderId.");
+        }
+
+        try {
+            // Check if the order exists
+            GenericValue orderHeader = EntityQuery.use(delegator)
+                    .from("OrderHeader")
+                    .where("orderId", orderId)
+                    .queryOne();
+
+            if (orderHeader == null) {
+                return ServiceUtil.returnError("Order with ID " + orderId + " not found.");
+            }
+
+            // Fetch the associated contact mechanism (Shipping Address)
+            GenericValue orderContactMech = EntityQuery.use(delegator)
+                    .from("OrderContactMech")
+                    .where("orderId", orderId, "contactMechPurposeTypeId", "SHIPPING_LOCATION")
+                    .queryFirst();
+
+            if (orderContactMech == null) {
+                return ServiceUtil.returnError("No shipping address found for order ID " + orderId);
+            }
+
+            // Get the contactMechId to update the PostalAddress
+            String contactMechId = orderContactMech.getString("contactMechId");
+
+            GenericValue postalAddress = EntityQuery.use(delegator)
+                    .from("PostalAddress")
+                    .where("contactMechId", contactMechId)
+                    .queryOne();
+
+            if (postalAddress == null) {
+                return ServiceUtil.returnError("No Postal Address found for contactMechId " + contactMechId);
+            }
+
+            // Update the shipping address
+            postalAddress.set("address1", address1);
+            postalAddress.set("address2", address2);
+            postalAddress.set("city", city);
+            postalAddress.set("stateProvinceGeoId", state);
+            postalAddress.set("postalCode", postalCode);
+            postalAddress.set("countryGeoId", country);
+            postalAddress.store();
+
+            Map<String, Object> result = ServiceUtil.returnSuccess();
+            result.put("orderId", orderId);
+            return result;
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError("Error updating order: " + e.getMessage());
+        }
+    }
 }

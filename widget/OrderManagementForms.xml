@@ -61,11 +61,12 @@ under the License.
     </form>
 
     <form name="createOrder" type="single" target="createOrders">
-        <!-- We have this utility in OFBiz to render form based on service definition.
-             Service attributes will automatically lookedup and will be shown on formfindOfbizDemo
-        -->
         <auto-fields-service service-name="createOrders"/>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
+    <form name="updateOrder" type="single" target="updateOrder">
+        <auto-fields-service service-name="updateOrder"/>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
 
 </forms>

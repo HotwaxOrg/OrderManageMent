@@ -46,9 +46,8 @@ under the License.
     <screen name="FindOrder">
         <section>
             <actions>
-                <set field="headerItem" value="findOfbizDemo"/>
-                <set field="titleProperty" value="PageTitleFindOfbizDemo"/>
-<!--                <set field="ofbizDemoctx" from-field="parameters"/>-->
+                <set field="headerItem" value="findOrder"/>
+                <set field="titleProperty" value="PageTitleFindOrder"/>
                 <script location="component://OrderManagement/groovyScripts/FindOrders.groovy"/>
             </actions   >
             <widgets>
@@ -62,6 +61,20 @@ under the License.
                                 <html><html-template location="component://OrderManagement/template/ListOrders.ftl"/></html>
                             </platform-specific>
                         </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="UpdateOrder">
+        <section>
+            <actions>
+                <set field="headerItem" value="updateOrder"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="updateOrder" location="component://OrderManagement/widget/OrderManagementForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

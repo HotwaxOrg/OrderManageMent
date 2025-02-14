@@ -56,10 +56,16 @@ under the License.
         <event type="service" invoke="createOrders"/>
         <response name="success" type="view" value="createOrder"/>
     </request-map>
+    <request-map uri="updateOrder">
+        <security/>
+        <event type="service" invoke="updateOrder"/>
+        <response name="updateOrder" type="view" value="updateOrder"/>
+    </request-map>
 
 
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://OrderManagement/widget/OrderManagementScreens.xml#main"/>
     <view-map name="FindOrder" type="screen" page="component://OrderManagement/widget/OrderManagementScreens.xml#FindOrder"/>
     <view-map name="createOrder" type="screen" page="component://OrderManagement/widget/OrderManagementScreens.xml#main"/>
+    <view-map name="updateOrder" type="screen" page="component://OrderManagement/widget/OrderManagementScreens.xml#UpdateOrder"/>
 </site-conf>
