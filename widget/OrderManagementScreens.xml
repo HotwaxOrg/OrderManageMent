@@ -69,7 +69,8 @@ under the License.
     <screen name="UpdateOrder">
         <section>
             <actions>
-                <set field="headerItem" value="updateOrder"/>
+<!--                <set field="headerItem" value="updateOrder"/>-->
+
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

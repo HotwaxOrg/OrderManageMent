@@ -56,10 +56,15 @@ under the License.
         <event type="service" invoke="createOrders"/>
         <response name="success" type="view" value="createOrder"/>
     </request-map>
+    <request-map uri="UpdateOrder">
+        <security/>
+        <response name="success" type="view" value="UpdateOrder"/>
+    </request-map>
     <request-map uri="updateOrder">
         <security/>
         <event type="service" invoke="updateOrder"/>
-        <response name="updateOrder" type="view" value="updateOrder"/>
+        <response name="success" type="request-redirect" value="UpdateOrder"/>
+        <response name="error" type="request-redirect" value="UpdateOrder"/>
     </request-map>
 
 
@@ -67,5 +72,5 @@ under the License.
     <view-map name="main" type="screen" page="component://OrderManagement/widget/OrderManagementScreens.xml#main"/>
     <view-map name="FindOrder" type="screen" page="component://OrderManagement/widget/OrderManagementScreens.xml#FindOrder"/>
     <view-map name="createOrder" type="screen" page="component://OrderManagement/widget/OrderManagementScreens.xml#main"/>
-    <view-map name="updateOrder" type="screen" page="component://OrderManagement/widget/OrderManagementScreens.xml#UpdateOrder"/>
+    <view-map name="UpdateOrder" type="screen" page="component://OrderManagement/widget/OrderManagementScreens.xml#UpdateOrder"/>
 </site-conf>
