@@ -45,5 +45,20 @@ under the License.
         <attribute name="countryGeoId" type="String" mode="IN" optional="true"/>
         <attribute name="orderList" type="List" mode="OUT" optional="false"/>
     </service>
+
+    <service name="createOrders" engine="java" auth="true" location="com.ordermgr.ofbiz.order.OrderLookupServices" invoke="createOrder">
+        <description>Service to create an order</description>
+        <attribute name="customerId" type="String" mode="IN" entity-name="Party" />
+        <attribute name="productId" type="String" mode="IN" entity-name="Product" field-name="productId"/>
+        <attribute name="quantity" type="Integer" mode="IN"/>
+        <attribute name="address1" type="String" mode="IN"/>
+        <attribute name="address2" type="String" mode="IN"/>
+        <attribute name="city" type="String" mode="IN"/>
+        <attribute name="state" type="String" mode="IN"/>
+        <attribute name="postalCode" type="String" mode="IN"/>
+        <attribute name="country" type="String" mode="IN"/>
+        <attribute name="paymentMethodType" type="String" mode="IN" entity-name="OrderPaymentPreference"/>
+        <attribute name="orderId" type="String" mode="OUT"/>
+    </service>
     
 </services>

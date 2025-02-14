@@ -51,8 +51,15 @@ under the License.
         <response name="success" type="view" value="FindOrder"/>
         <response name="error" type="view" value="FindOrder"/>
     </request-map>
-    
+    <request-map uri="createOrders">  <!-- Ensure it matches the requested URL -->
+        <security/>
+        <event type="service" invoke="createOrders"/>
+        <response name="success" type="view" value="createOrder"/>
+    </request-map>
+
+
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://OrderManagement/widget/OrderManagementScreens.xml#main"/>
     <view-map name="FindOrder" type="screen" page="component://OrderManagement/widget/OrderManagementScreens.xml#FindOrder"/>
+    <view-map name="createOrder" type="screen" page="component://OrderManagement/widget/OrderManagementScreens.xml#main"/>
 </site-conf>

@@ -1,7 +1,15 @@
 package com.ordermgr.ofbiz.order;
 
 import java.util.*;
+import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.math.BigDecimal;
 
+import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilDateTime;
+import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
@@ -88,5 +96,98 @@ public class OrderLookupServices {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("orderList", orderList);
         return result;
+    }
+
+    public static Map<String, Object> createOrder(DispatchContext dctx, Map<String, Object> context) {
+        // Method implementation here
+        Delegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Locale locale = (Locale) context.get("locale");
+
+        String customerId = (String) context.get("customerId");
+        String productId = (String) context.get("productId");
+        BigDecimal quantity = new BigDecimal(context.get("quantity").toString());
+        String address1 = (String) context.get("address1");
+        String address2 = (String) context.get("address2");
+        String city = (String) context.get("city");
+        String state = (String) context.get("state");
+        String postalCode = (String) context.get("postalCode");
+        String country = (String) context.get("country");
+        String paymentMethodTypeId = (String) context.get("paymentMethodType");
+
+        // Validate required fields
+        if (UtilValidate.isEmpty(customerId) || UtilValidate.isEmpty(productId) || quantity == null || quantity.compareTo(BigDecimal.ZERO) <= 0) {
+            return ServiceUtil.returnError("Missing or invalid required parameters.");
+        }
+
+        try {
+            // Validate Customer
+            GenericValue customer = EntityQuery.use(delegator).from("Party").where("partyId", customerId).queryOne();
+            if (customer == null) {
+                return ServiceUtil.returnError("Invalid customer ID: " + customerId);
+            }
+
+            // Validate Product
+            GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
+            if (product == null) {
+                return ServiceUtil.returnError("Invalid product ID: " + productId);
+            }
+
+            // Generate Order ID
+            String orderId = delegator.getNextSeqId("OrderHeader");
+            Timestamp now = UtilDateTime.nowTimestamp();
+
+            // Create Order Header
+            GenericValue orderHeader = delegator.makeValue("OrderHeader",
+                    UtilMisc.toMap("orderId", orderId, "orderTypeId", "SALES_ORDER", "orderDate", now,
+                            "statusId", "ORDER_CREATED"));
+            delegator.create(orderHeader);
+
+            // Create Order Item
+            GenericValue orderItem = delegator.makeValue("OrderItem",
+                    UtilMisc.toMap("orderId", orderId, "orderItemSeqId", delegator.getNextSeqId("OrderItem"),
+                            "productId", productId, "quantity", quantity,
+                            "statusId", "ITEM_CREATED"));
+            delegator.create(orderItem);
+
+            // Create Order Role
+            GenericValue orderRole = delegator.makeValue("OrderRole",
+                    UtilMisc.toMap("orderId", orderId, "roleTypeId", "CUSTOMER", "partyId", customerId));
+            delegator.create(orderRole);
+
+            // Create a contact mech
+            String contactMechId = delegator.getNextSeqId("ContactMech");
+            GenericValue contactMech = delegator.makeValue("ContactMech",
+                    UtilMisc.toMap("contactMechId", contactMechId,
+                            "contactMechTypeId", "POSTAL_ADDRESS"));
+            delegator.create(contactMech);
+
+            // Create Order Contact Mechanism (Shipping Address)
+            GenericValue orderContactMech = delegator.makeValue("OrderContactMech",
+                    UtilMisc.toMap("orderId", orderId, "contactMechPurposeTypeId", "SHIPPING_LOCATION", "contactMechId", contactMechId));
+            delegator.create(orderContactMech);
+
+            // Create Postal Address
+            GenericValue postalAddress = delegator.makeValue("PostalAddress",
+                    UtilMisc.toMap("contactMechId", contactMechId,
+                            "address1", address1, "address2", address2, "city", city,
+                            "stateProvinceGeoId", state, "postalCode", postalCode, "countryGeoId", country));
+            delegator.create(postalAddress);
+
+            // Order Payment Preference
+            String orderPaymentPreferenceId = delegator.getNextSeqId("OrderPaymentPreference");
+            GenericValue paymentPreference = delegator.makeValue("OrderPaymentPreference",
+                    UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreferenceId,
+                            "orderId", orderId, "paymentMethodTypeId", paymentMethodTypeId));
+            delegator.create(paymentPreference);
+
+            // Store orderId in response
+            Map<String, Object> result = ServiceUtil.returnSuccess();
+            result.put("orderId", orderId);
+            return result;
+
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError("Error creating order: " + e.getMessage());
+        }
     }
 }

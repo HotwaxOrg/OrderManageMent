@@ -27,6 +27,13 @@ under the License.
                 <set field="headerItem" value="main"/><!-- this highlights the selected menu-item with name "main" -->
             </actions>
             <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="createOrder" location="component://OrderManagement/widget/OrderManagementForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+            <widgets>
                 <decorator-screen name="OrderManagementCommonDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet name="Find Order..."/>
