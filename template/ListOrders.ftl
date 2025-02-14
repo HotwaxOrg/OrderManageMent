@@ -16,7 +16,7 @@
         </tr>
     </thead>
 
-    <#if orderList?? && orderList?has_content>
+    <#if orderList?has_content>
     <tbody>
         <#list orderList as result>
             <tr>
@@ -37,7 +37,7 @@
     </tbody>
 <#else>
     <tbody>
-        <tr><td colspan="12">No orders found.</td></tr>
+        <tr><td colspan="12"> </td></tr>
     </tbody>
 </#if>
 

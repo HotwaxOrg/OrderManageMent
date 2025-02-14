@@ -42,7 +42,7 @@ under the License.
                 <set field="headerItem" value="findOfbizDemo"/>
                 <set field="titleProperty" value="PageTitleFindOfbizDemo"/>
 <!--                <set field="ofbizDemoctx" from-field="parameters"/>-->
-<!--                <script location="component://OrderManagement/groovyScripts/FindOrders.groovy"/>-->
+                <script location="component://OrderManagement/groovyScripts/FindOrders.groovy"/>
             </actions   >
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
