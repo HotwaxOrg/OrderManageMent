@@ -45,7 +45,7 @@ under the License.
         <security/>
         <response name="success" type="view" value="FindOrder"/>
     </request-map>
-    <request-map uri="searchorders">
+    <request-map uri="SearchOrders">
         <security/>
         <event type="service" invoke="findOrders"/>
         <response name="success" type="view" value="FindOrder"/>

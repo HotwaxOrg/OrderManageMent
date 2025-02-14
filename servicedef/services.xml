@@ -30,6 +30,20 @@ under the License.
         </description>
     </service>
 
-    <service name="findOrders" engine="java" auth="true"
+    <service name="findOrders" engine="java" auth="true" location="com.ordermgr.ofbiz.order.OrderLookupServices" invoke="findOrders">
+        <description>Service to Find Orders</description>
+        <attribute name="orderId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderDate" type="String" mode="IN" optional="true"/>
+        <attribute name="firstName" type="String" mode="IN" optional="true"/>
+        <attribute name="lastName" type="String" mode="IN" optional="true"/>
+        <attribute name="address1" type="String" mode="IN" optional="true"/>
+        <attribute name="address2" type="String" mode="IN" optional="true"/>
+        <attribute name="city" type="String" mode="IN" optional="true"/>
+        <attribute name="stateProvinceGeoId" type="String" mode="IN" optional="true"/>
+        <attribute name="postalCode" type="String" mode="IN" optional="true"/>
+        <attribute name="countryGeoId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderList" type="List" mode="OUT" optional="false"/>
+    </service>
     
 </services>

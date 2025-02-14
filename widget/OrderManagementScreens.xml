@@ -42,14 +42,19 @@ under the License.
                 <set field="headerItem" value="findOfbizDemo"/>
                 <set field="titleProperty" value="PageTitleFindOfbizDemo"/>
 <!--                <set field="ofbizDemoctx" from-field="parameters"/>-->
-                <script location="component://OrderManagement/groovyScripts/FindOrders.groovy"/>
-            </actions>
+<!--                <script location="component://OrderManagement/groovyScripts/FindOrders.groovy"/>-->
+            </actions   >
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://OrderManagement/template/FindOrders.ftl"/></html>
                         </platform-specific>
+                        <screenlet title="${uiLabelMap.OfbizDemoListOfbizDemos}">
+                            <platform-specific>
+                                <html><html-template location="component://OrderManagement/template/ListOrders.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
